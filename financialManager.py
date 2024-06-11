@@ -3,9 +3,11 @@ import csv
 import gspread
 import time
 
+#Files should be titled in YYYY-MM format for sorting purposes. They will be csv files downloaded from your bank.
 MONTH = '2024-06'
 
-file = fr"C:\Users\Balmy\Python Projects\FinancialManager\usbank_{MONTH}.csv"
+#Insert the filepath here.
+file = fr"EXAMPLEPATH\bank_{MONTH}.csv"
 
 transactions = []
 
@@ -29,6 +31,8 @@ wks = sh.worksheet(f"{MONTH}")
 
 rows = usbankFin(file)
 
+
+#Remove unnecessary prefixes
 for row in rows:
     if row[1][:len("DEBIT PURCHASE -VISA")] == "DEBIT PURCHASE -VISA":
         wks.insert_row([row[0], row[1][len("DEBIT PURCHASE -VISA")+1:], row[2]], 8)
